@@ -1,27 +1,20 @@
-import { LightningElement } from "lwc";
+import { LightningElement } from 'lwc';
+import generateData from './generateData';
 
-export default class App extends LightningElement {
-  title = "Welcome to Lightning Web Components!";
+const columns = [
+    { label: 'Label', fieldName: 'name' },
+    { label: 'Website', fieldName: 'website', type: 'url' },
+    { label: 'Phone', fieldName: 'phone', type: 'phone' },
+    { label: 'Balance', fieldName: 'amount', type: 'currency' },
+    { label: 'CloseAt', fieldName: 'closeAt', type: 'date' }
+];
 
-  showFeatures = true;
+export default class BasicDatatable extends LightningElement {
+    data = [];
+    columns = columns;
 
-  /**
-   * Getter for the features property
-   */
-  get features() {
-    return [
-      {
-        label: "Learn in the browser.",
-        icon: "utility:edit",
-      },
-      {
-        label: "View changes to code instantly with Live Compilation.",
-        icon: "utility:refresh",
-      },
-      {
-        label: "Style your components with SLDS.",
-        icon: "utility:brush",
-      },
-    ];
-  }
+    connectedCallback() {
+        const data = generateData({ amountOfRecords: 100 });
+        this.data = data;
+    }
 }
